@@ -12,9 +12,17 @@ const ChessBoard = ({
   setTurn,
 }: {
   chess: Chess;
-  setBoard: any;
+  setBoard: React.Dispatch<
+    React.SetStateAction<
+      ({
+        square: Square;
+        type: PieceSymbol;
+        color: Color;
+      } | null)[][]
+    >
+  >;
   turn: Turn;
-  setTurn: any;
+  setTurn: React.Dispatch<React.SetStateAction<Turn>>;
   board: ({
     square: Square;
     type: PieceSymbol;
@@ -62,8 +70,9 @@ const ChessBoard = ({
                       });
                       setBoard(chess.board());
                       setTurn(() => {
-                        if (turn === "white") return "black";
-                        if (turn === "black") return "white";
+                        if (turn === "white") return "black" as Turn;
+                        if (turn === "black") return "white" as Turn;
+                        return turn;
                       });
                     }
                   }}
